@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TareApp</title>
+    <link rel="icon" type="image/png" href="./imagenes/icono-agenda-titulo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis&family=Open+Sans&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="mainCard">
+        <div class="title"><img src="/static/images/icono-agenda-titulo.png" class="logo"/></div>
+        <div class="formularios">
+          <form action="/save-data" method="POST">
+            <input
+              type="text"
+              name="task"
+              placeholder="Nombre de la tarea"
+              class="inputForm"
+              autocomplete="off"
+              data-form-input
+            /> 
+            <input
+              type="text"
+              name="description"
+              placeholder="descripción"
+              class="inputForm"
+              autocomplete="off"
+              data-form-input
+            /> 
+            <label for="fecha_inicio">fecha inicio:</label>
+            <input type="datetime-local" data-form-date placeholder="YYYY/MM/DD" name="fecha-inicio" id="InputDate_inicio"/>
+            <label for="fecha_finalizacion">fecha finalización:</label>
+            <input type="datetime-local" data-form-date placeholder="YYYY/MM/DD" name="fecha-finalizacion" id="InputDate_finalizaion"/>
+            
+            <button type="submit" class="btnCreate" data-form-btn>
+              Agregar <i class="fas fa-plus-circle"></i>
+            </button>
+          </form>
+        </div>
+          <table class="cardsList">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Detalle</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha finalización</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task[1] }}</td>
+                        <td>{{ task[2] }}</td>
+                        <td>{{ task[3] }}</td>
+                        <td>{{ task[4] }}</td>
+                        <td>
+                            <!-- Formulario para editar la tarea -->
+                            <form action="{{ url_for('edit_task', task_id=task[0]) }}" method="get">
+                              <button type="submit" class="btnEditar">Editar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- Formulario para eliminar la tarea -->
+                            <form action="{{ url_for('delete_task', task_id=task[0]) }}" method="post">
+                                <button type="submit" class="btnEliminar">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
