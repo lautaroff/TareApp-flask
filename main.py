@@ -14,7 +14,7 @@ def process():
     description = request.form.get('description')
     startDate = request.form.get('fecha-inicio') or datetime.now().date()
     endDate = request.form.get('fecha-finalizacion') or datetime.now().date()
-    if name !=  "":
+    if name !=  "" and not name.isnumeric():
         create(name, description, startDate, endDate)
     return redirect(url_for('index'))
 
@@ -28,8 +28,11 @@ def edit_task(task_id):
         # Convertir fecha a formato 'YYYY-MM-DD HH:MM:SS'
         start_date = datetime.strptime(request.form['fecha-inicio'], '%Y-%m-%dT%H:%M').strftime('%Y-%m-%d %H:%M:%S')
         end_date = datetime.strptime(request.form['fecha-finalizacion'], '%Y-%m-%dT%H:%M').strftime('%Y-%m-%d %H:%M:%S')
-        if name != "":
+        if name != "" and not name.isnumeric():
             update(name, description, start_date, end_date, task_id)
+        else:
+            task = get_task_by_id(task_id)
+            return render_template('edit_task.html', task=task)
         return redirect(url_for('index'))
 
     task = get_task_by_id(task_id)
