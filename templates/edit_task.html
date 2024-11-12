@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Tarea</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="\static\css\edit_task.css">
 </head>
 <body>
+    <main>
     <h1>Editar Tarea</h1>
     <form action="{{ url_for('edit_task', task_id=task[0]) }}" method="post">
         <label for="task">Nombre de la Tarea:</label>
         <input type="text" name="task" value="{{ task[1] }}" required>
-
         <label for="description">Descripción:</label>
         <input type="text" name="description" value="{{ task[2] }}" required>
-
         <label for="fecha-inicio">Fecha de Inicio:</label>
         <input type="datetime-local" name="fecha-inicio" value="{{ task[3]  }}" required>
-
         <label for="fecha-finalizacion">Fecha de Finalización:</label>
         <input type="datetime-local" name="fecha-finalizacion" value="{{ task[4]}}" required>
-
         <button type="submit">Guardar Cambios</button>
     </form>
+    </main>
     <a href="{{ url_for('index') }}">Cancelar</a>
 </body>
 </html>

@@ -9,7 +9,7 @@ class ConexionBD:
             self.conn = mysql.connector.connect(
                 host="localhost",
                 user="root",
-                password="",
+                password="1597845",
                 database="gestiontareas"
             )
         return self.conn
